@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.15.5)
 # Name the Project
 project(intro)
 
-# Create Variable w/ SRC files
+# Create Variable called SRCs w/ SRC .c files
 set(
     SRCs
     ${PROJECT_SOURCE_DIR}/src/main.c
@@ -32,3 +32,23 @@ target_link_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/adder_lib)
 
 # LINK LIBRARY to Project
 target_link_libraries(${PROJECT_NAME} adder)
+
+
+############################## Add GLFW Submodule ###################################
+
+# Add Subdirectory for GLFW Submodule
+add_subdirectory(${PROJECT_SOURCE_DIR}/external/glfw)
+
+# Link GLFW Subdirectory to Project
+target_link_directories(${PROJECT_NAME}
+    PRIVATE
+    ${PROJECT_SOURCE_DIR}/external/glfw/src
+)
+
+# Include GLFW headers
+target_include_directories(${PROJECT_NAME}
+    PUBLIC external/glfw/include
+)
+
+# Link Static GLFW3 Library
+target_link_libraries(${PROJECT_NAME} glfw)
